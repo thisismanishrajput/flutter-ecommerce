@@ -64,14 +64,13 @@ class ProductHomeData extends ChangeNotifier implements ProductHomeProvider {
     try {
      _iProductLoading = true;
 
-      var response = await _dio.post(
+      var response = await _dio.get(
         API.allProduct,
         options: Options(
           headers: {
             "Content-Type": "application/json"
           },
         ),
-        // data: json.encode(data),
       );
       if (response.statusCode == 200) {
         print(response);

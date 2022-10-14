@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Models/Products/productsModel.dart';
+import 'package:flutter_ecommerce/Screens/productDetails.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,17 +12,17 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../Common/Widges/shimmer.dart';
-
+import '../animation/fade_page.dart';
 
 class ProductCard extends StatefulWidget {
   const ProductCard(
       {Key? key,
-        required this.thread,
-        this.isTapDisable = false,
-        this.isReadmoreRemove = false,
-        required this.postIndex,
-        this.isLikesCommentsContainerRemove = false,
-         this.appUserID})
+      required this.thread,
+      this.isTapDisable = false,
+      this.isReadmoreRemove = false,
+      required this.postIndex,
+      this.isLikesCommentsContainerRemove = false,
+      this.appUserID})
       : super(key: key);
   final ProductDetails thread;
   final int postIndex;
@@ -39,7 +40,6 @@ class _ProductCard extends State<ProductCard> {
   int currentPage = 1;
   bool _showTranslated = false;
   String? _titleTranslatedText;
-
 
   @override
   void initState() {
@@ -73,42 +73,6 @@ class _ProductCard extends State<ProductCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // post caption and description
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.all(
-                                  8,
-                                ),
-                                child: _showTranslated
-                                    ? Text(
-                                  _titleTranslatedText!,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.notoSans(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.08,
-                                  ),
-                                )
-                                    : Text(
-                                  widget.thread.productName!,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.notoSans(
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.08,
-                                  ),
-                                )),
-                          ],
-                        ),
-
-
-
                         // post image container
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -116,16 +80,16 @@ class _ProductCard extends State<ProductCard> {
                             clipBehavior: Clip.none,
                             children: [
                               AspectRatio(
-                                aspectRatio: 3 / 1,
+                                aspectRatio: 4 / 3,
                                 child: PreloadPageView.builder(
                                   controller: _pageController,
-                                  itemCount:1,
-                                  preloadPagesCount:1,
+                                  itemCount: 1,
+                                  preloadPagesCount: 1,
                                   physics:
-                                  const AlwaysScrollableScrollPhysics(),
+                                      const AlwaysScrollableScrollPhysics(),
                                   onPageChanged: (page) {
                                     setState(
-                                          () {
+                                      () {
                                         currentPage = page + 1;
                                       },
                                     );
@@ -136,39 +100,71 @@ class _ProductCard extends State<ProductCard> {
                                         imageUrl: widget.thread.image!,
                                         imageBuilder:
                                             (context, imageProvider) =>
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
                                                 BorderRadius.circular(5.0),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
                                             ),
+                                          ),
+                                        ),
                                         placeholder: (context, url) =>
                                             Shimmer.fromColors(
                                                 baseColor: Colors.grey[300]!,
                                                 highlightColor:
-                                                Colors.grey[100]!,
+                                                    Colors.grey[100]!,
                                                 enabled: true,
                                                 child: loadingImageShimmer(
                                                     context)),
                                         errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
+                                            const Icon(Icons.error),
                                       ),
                                       zoomedBackgroundColor:
-                                      Color.fromRGBO(240, 240, 240, 1.0),
+                                          Color.fromRGBO(240, 240, 240, 1.0),
                                       hideStatusBarWhileZooming: true,
                                     );
                                   },
                                 ),
                               ),
-
                             ],
                           ),
                         ),
-
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.all(
+                                  8,
+                                ),
+                                child: Text(
+                                  widget.thread.productName!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.notoSans(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.08,
+                                  ),
+                                )),
+                            Padding(
+                                padding: const EdgeInsets.all(
+                                  8,
+                                ),
+                                child: Text("\$${ widget.thread.productPrice!}",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.notoSans(
+                                    fontSize: 18,
+                                    color: Colors.deepPurple,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.08,
+                                  ),
+                                )),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -186,19 +182,17 @@ class _ProductCard extends State<ProductCard> {
 
   void openPost() {
     {
-      // Navigator.of(context, rootNavigator: true).push(
-      //   FadePageRoute(
-      //     fullscreenDialog: true,
-      //     builder: (context) {
-      //       return ViewForumTemp(
-      //         thread: widget.thread,
-      //         appUserID: widget.appUserID,
-      //         postIndex: widget.postIndex,
-      //         screenType: widget.screenType,
-      //       );
-      //     },
-      //   ),
-      // );
+      Navigator.of(context, rootNavigator: true).push(
+        FadePageRoute(
+          fullscreenDialog: true,
+          builder: (context) {
+            return ViewForumTemp(
+              thread: widget.thread,
+              postIndex: widget.postIndex,
+            );
+          },
+        ),
+      );
     }
   }
 }

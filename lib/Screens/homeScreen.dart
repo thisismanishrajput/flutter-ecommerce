@@ -35,6 +35,7 @@ fetchProduct();
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+
     return Scaffold(
       backgroundColor: bgLightColor,
       resizeToAvoidBottomInset: false,
@@ -46,7 +47,6 @@ fetchProduct();
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 20, right: 20),
@@ -58,7 +58,7 @@ fetchProduct();
 
                 ],
               );
-            })
+            },)
       ),
     );
   }
