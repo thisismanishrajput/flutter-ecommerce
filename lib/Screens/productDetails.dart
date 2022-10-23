@@ -175,6 +175,7 @@ class _ViewForumTempState extends State<ViewForumTemp> {
                 ],
               ),
             ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
