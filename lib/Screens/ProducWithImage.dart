@@ -158,7 +158,7 @@ class _ProductCard extends State<ProductCard> {
                                   overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.notoSans(
                                     fontSize: 18,
-                                    color: Colors.deepPurple,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 0.08,
                                   ),

@@ -168,7 +168,7 @@ class _ViewForumTempState extends State<ViewForumTemp> {
                         ),
                         SizedBox(width: 10,),
                         Text("\$${widget.thread.productPrice}", style: GoogleFonts.openSans(
-                            fontSize: 20, color: Colors.deepPurple,fontWeight: FontWeight.w600),)
+                            fontSize: 20, color: Colors.black,fontWeight: FontWeight.w600),)
                       ],
                     ),
                   )
@@ -190,7 +190,7 @@ class _ViewForumTempState extends State<ViewForumTemp> {
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: MediaQuery.of(context).size.height * 0.05,
                     decoration: const BoxDecoration(
-                        color: Colors.deepPurple,
+                        color: Colors.black,
                         borderRadius: BorderRadius.all(Radius.circular(30))),
                     child: Center(
                         child: Row(

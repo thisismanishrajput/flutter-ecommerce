@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/Common/Widges/appBar.dart';
 import 'package:flutter_ecommerce/Screens/allProducts.dart';
 
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class _ProductHomeScreenState extends State<ProductHomeScreen>
   
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
 fetchProduct();
     });
     super.initState();
@@ -39,6 +40,7 @@ fetchProduct();
     return Scaffold(
       backgroundColor: bgLightColor,
       resizeToAvoidBottomInset: false,
+      appBar: AppBarMethod.appBarMethod(pageName: '', context: context),
       body: SafeArea(
         child: Consumer<ProductHomeProvider>(
             builder: (context, data, child) {
